@@ -63,29 +63,29 @@
         <div class="container">
 
             <div id="logo" class="pull-left">
-                <h1><a href="#body" class="scrollto">Достав<span>ка</span></a></h1>
+                <h1><a href="#body" class="scrollto">Deliv<span>er</span></a></h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
             </div>
 
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li class="menu-active"><a href="#body">Домой</a></li>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#portfolio">Наши партнеры</a></li>
-                    <li><a href="#team">Команда</a></li>
+                    <li class="menu-active"><a href="#body">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Customers</a></li>
+                    <li><a href="#team">Stuff</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="menu-has-children">
-                            <a href="">Выбор услуги</a>
+                            <a href="">Choose the service</a>
                             <ul>
-                                <li>@Html.ActionLink("Выбрать подходящую услугу", "FilterOptions", "Property", new { }, new { })</li>
-                                <li>@Html.ActionLink("Посмотреть список всех курьеров", "Index", "Carrier", new { }, new { })</li>
+                                <li>@Html.ActionLink("Choose the service", "FilterOptions", "Property", new { }, new { })</li>
+                                <li>@Html.ActionLink("List of all carriers", "Index", "Carrier", new { }, new { })</li>
                             </ul>
                         </li>
                     }
-                    <li><a href="#contact">Контакты</a></li>
+                    <li><a href="#contact">Contacts</a></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>
@@ -99,7 +99,7 @@
     <footer id="footer">
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong>Доставка</strong>. Все права защищены
+                &copy; Copyright <strong>Deliver</strong>. All rights received.
             </div>
             <div class="credits">
                 <!--
