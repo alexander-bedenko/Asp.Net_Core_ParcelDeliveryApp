@@ -11,13 +11,13 @@ namespace ParcelDelivery.BLL.Interfaces
         where TEntity : BaseEntity
         where TModel : BaseDto
     {
-        //Task CreateAsync(TModel model);
-        //Task<OperationDetail> UpdateAsync(TModel model, string itemName);
+        Task DeleteAsync(int id);
+        void Create(TModel model);
+        Task<TModel> UpdateAsync(TModel model);
         Task<IEnumerable<TModel>> GetAllAsync(Expression<Func<TEntity, bool>> filter);
         Task<IEnumerable<TModel>> GetAllAsync();
         IEnumerable<TModel> GetAll(Expression<Func<TEntity, bool>> filter);
         IEnumerable<TModel> GetAll();
-        //Task<TModel> GetAsync(int id);
-        //Task<OperationDetail> DeleteAsync(int id, string itemName);
+        Task<TModel> GetAsync(Expression<Func<TEntity, bool>> filter);
     }
 }

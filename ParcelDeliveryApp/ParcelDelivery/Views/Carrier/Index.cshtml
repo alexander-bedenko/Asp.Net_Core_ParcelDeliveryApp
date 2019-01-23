@@ -1,0 +1,109 @@
+﻿@using X.PagedList.Mvc.Core;
+@using ParcelDelivery.Models
+@model X.PagedList.IPagedList<ParcelDelivery.Models.CarrierViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin page</title>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/PagedList.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Modal.css" />
+    <link href="/css/jquery-ui.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <section id="topbar" class="d-none d-lg-block">
+        <div class="container clearfix">
+            <div class="contact-info float-left">
+                @Html.ActionLink("   На главную", "Index", "Home", new { }, new { @class = "card-link fa fa-home" })
+                <i class="fa fa-phone"></i> +375 29 6-000-000
+            </div>
+            <div class="social-links float-right">
+                @await Html.PartialAsync("~/Views/Account/_LoginPartial.cshtml")
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2>Список курьеров</h2>
+        <table id="table" class="table table-striped table-bordered" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Телефон</th>
+                    <th>Описание</th>
+                    <th>Рейтинг</th>
+                    @if (User.Identity.Name.Equals("Admin"))
+                {
+                    <th>Действия</th>
+            }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.Id</td>
+                    <td>@c.Name</td>
+                    <td>@c.Address</td>
+                    <td>@c.Phone</td>
+                    <td>@c.Description</td>
+                    <td>
+                        @for (int i = 1; i < 6; i++)
+                    {
+                        if (i <= Convert.ToDouble(ViewData[$"{c.Id}"]))
+                        {
+                            <span class="fa fa-star checked"></span>
+                    }
+                    else
+                    {
+                        <span class="fa fa-star"></span>
+                    }
+                }
+                    </td>
+                    @if (User.Identity.Name.Equals("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Отзывы", "CarrierFeedbacks", "Feedback", new { id = c.Id },
+                             new { }) |
+                        @Html.ActionLink("Услуги", "Index", "Property", new { id = c.Id },
+                             new { }) |
+                        @Html.ActionLink("Изменить", "Edit", "Carrier", new { id = c.Id },
+                             new { @class = "viewDialog", data_dialog_title = "Редактирование курьера" }) |
+                        @Html.ActionLink("Удалить", "Delete", "Carrier", new { id = c.Id },
+                             new { @class = "viewDialog", data_dialog_title = "Удаление курьера" })
+                    </td>
+            }
+                </tr>
+        }
+            </tbody>
+        </table>
+        @if (User.Identity.Name.Equals("Admin"))
+        {
+            <p>@Html.ActionLink("Добавить", "Create", "Carrier", new {}, new {@class = "btn btn-primary btn-lg viewDialog", data_dialog_title = "Создание курьера"})</p>
+        }
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        <a class="card-link" href='javascript:history.go(-1)'><span class="fa fa fa-arrow-left"></span> На предыдущую страницу</a>
+    </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/Modal.js"></script>
+<script src="~/lib/jquery/jquery-ui.min.js"></script>
+</body>
+</html>
+

@@ -27,7 +27,7 @@ namespace ParcelDelivery.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public IActionResult Register()
         {
             return PartialView("_Register");
         }

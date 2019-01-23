@@ -10,5 +10,10 @@ namespace ParcelDelivery.Controllers
         {
             return View();
         }
+
+        public IActionResult Error()
+        {
+            return NotFound("Oops! Something goes wrong.");
+        }
     }
 }

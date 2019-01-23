@@ -35,6 +35,7 @@ namespace ParcelDelivery.BLL.Services
             return dtos;
         }
 
+
         public IEnumerable<TModel> GetAll(Expression<Func<TEntity, bool>> filter)
         {
             var entities = _uow.Repository<TEntity>().GetAll(filter);
@@ -49,6 +50,34 @@ namespace ParcelDelivery.BLL.Services
             var dtos = Mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(entities);
 
             return dtos;
+        }
+
+        public async Task<TModel> GetAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            var entity = await _uow.Repository<TEntity>().GetAsync(filter);
+            var dto = Mapper.Map<TModel>(entity);
+
+            return dto;
+        }
+
+        public void Create(TModel model)
+        {
+            _uow.Repository<TEntity>().Create(Mapper.Map<TEntity>(model));
+            _uow.Commit();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _uow.Repository<TEntity>().DeleteAsync(Mapper.Map<TEntity>(id));
+            _uow.Commit();
+        }
+
+        public async Task<TModel> UpdateAsync(TModel model)
+        {
+            var entity = await _uow.Repository<TEntity>().UpdateAsync(Mapper.Map<TEntity>(model));
+            _uow.Commit();
+
+            return Mapper.Map<TModel>(entity);
         }
     }
 }

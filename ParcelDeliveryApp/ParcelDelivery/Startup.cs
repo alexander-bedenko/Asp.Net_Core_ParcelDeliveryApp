@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParcelDelivery.BLL.Infrastructure;
@@ -39,14 +40,15 @@ namespace ParcelDelivery
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(o => o.LoginPath = new PathString("/account/login"));
 
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
             services.RegisterBllServices(Configuration);
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICarrierService, CarrierService>();
-            //services.AddTransient<IParcelDeliveryContext, ParcelDeliveryContext>();
-            //services.AddTransient<IUnitOfWork, UnitOfWork>();
-            //services.AddTransient<IServiceService, ServiceService>();
-            //services.AddTransient<IFeedbackService, FeedbackService>();
-            //services.AddTransient<IParcelDeliveryContext, ParcelDeliveryContext>();
+            services.AddTransient<IParcelDeliveryContext, ParcelDeliveryContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IServiceService, ServiceService>();
+            services.AddTransient<IFeedBackService, FeedBackService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +65,16 @@ namespace ParcelDelivery
 
             app.UseAuthentication();
             app.UseStaticFiles();
+            
+            //Perform middleware for custom 404 page
+            app.Use(async (context, next) => {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/Home/Error";
+                    await next();
+                }
+            });
 
             app.UseMvc(routes =>
             {
