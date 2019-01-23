@@ -69,13 +69,13 @@ namespace ParcelDelivery.BLL.Services
         public async Task DeleteAsync(int id)
         {
             await _uow.Repository<TEntity>().DeleteAsync(Mapper.Map<TEntity>(id));
-            _uow.Commit();
+            await _uow.Commit();
         }
 
         public async Task<TModel> UpdateAsync(TModel model)
         {
             var entity = await _uow.Repository<TEntity>().UpdateAsync(Mapper.Map<TEntity>(model));
-            _uow.Commit();
+            await _uow.Commit();
 
             return Mapper.Map<TModel>(entity);
         }

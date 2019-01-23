@@ -1,4 +1,5 @@
-﻿using ParcelDelivery.BLL.Dtos;
+﻿using System.Threading.Tasks;
+using ParcelDelivery.BLL.Dtos;
 
 namespace ParcelDelivery.BLL.Interfaces
 {
@@ -6,7 +7,7 @@ namespace ParcelDelivery.BLL.Interfaces
     {
         UserDto AutheticateUser(string login, string password);
         UserDto FindUser(string login);
-        void RegisterUser(UserDto userDto);
+        Task RegisterUser(UserDto userDto);
         void EditUser(UserDto userDto);
         void DeleteUser(UserDto userDto);
     }

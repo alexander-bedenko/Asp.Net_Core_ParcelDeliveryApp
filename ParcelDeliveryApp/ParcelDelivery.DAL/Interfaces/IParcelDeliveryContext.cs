@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ParcelDelivery.DAL.Entities;
@@ -11,7 +12,8 @@ namespace ParcelDelivery.DAL.Interfaces
         DbSet<Carrier> Carriers { get; set; }
         DbSet<Feedback> Feedbacks { get; set; }
         DbSet<Service> Services { get; set; }
-        int SaveChanges();
+        //int SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken defaultToken);
         void Dispose();
         EntityEntry Entry(object entity);
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;

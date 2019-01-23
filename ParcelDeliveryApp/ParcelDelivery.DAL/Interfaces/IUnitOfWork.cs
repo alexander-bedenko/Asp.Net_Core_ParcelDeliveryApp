@@ -11,7 +11,7 @@ namespace ParcelDelivery.DAL.Interfaces
 
         ParcelDeliveryContext Context { get; }
 
-        void Commit();
+        Task Commit();
 
         void Rollback();
     }

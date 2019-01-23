@@ -57,9 +57,9 @@ namespace ParcelDelivery.DAL.EF
             GC.SuppressFinalize(this);
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(_disposed);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using ParcelDelivery.BLL.Dtos;
 using ParcelDelivery.BLL.Interfaces;
@@ -34,12 +35,12 @@ namespace ParcelDelivery.BLL.Services
             return Mapper.Map<User, UserDto>(user);
         }
 
-        public void RegisterUser(UserDto userDto)
+        public async Task RegisterUser(UserDto userDto)
         {
             userDto.Password = HashProvider.Hash(userDto.Password);
             var regUser = Mapper.Map<User>(userDto);
             _uow.Repository<User>().Create(regUser);
-            _uow.Commit();
+            await _uow.Commit();
         }
 
         public void EditUser(UserDto userDto)

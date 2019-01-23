@@ -34,7 +34,7 @@ namespace ParcelDelivery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(UserViewModel user)
+        public async Task<IActionResult> Register(UserViewModel user)
         {
             if (ModelState.IsValid)
             {
@@ -45,7 +45,7 @@ namespace ParcelDelivery.Controllers
                 }
                 else
                 {
-                    _userService.RegisterUser(Mapper.Map<UserDto>(user));
+                    await _userService.RegisterUser(Mapper.Map<UserDto>(user));
                     return RedirectToAction("Index", "Home");
                 }
             }
