@@ -1,4 +1,4 @@
-﻿@model ParcelDelivery.Models.PropertyViewModel
+﻿@model ParcelDelivery.Models.ServiceViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +80,7 @@
                         <li class="menu-has-children">
                             <a href="">Choose the service</a>
                             <ul>
-                                <li>@Html.ActionLink("Choose the service", "FilterOptions", "Property", new { }, new { })</li>
+                                <li>@Html.ActionLink("Choose the service", "FilterOptions", "Service", new { }, new { })</li>
                                 <li>@Html.ActionLink("List of all carriers", "Index", "Carrier", new { }, new { })</li>
                             </ul>
                         </li>

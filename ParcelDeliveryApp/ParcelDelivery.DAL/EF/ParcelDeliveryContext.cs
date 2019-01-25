@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ParcelDelivery.DAL.Entities;
 using ParcelDelivery.DAL.Interfaces;
 
@@ -24,6 +23,33 @@ namespace ParcelDelivery.DAL.EF
             optionsBuilder.UseSqlServer(ConnectionString);
 
             base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(l => l.Carriers)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .Property(l => l.Login)
+                .HasMaxLength(20);
+
+            modelBuilder.Entity<Carrier>()
+                .HasMany(p => p.Services)
+                .WithOne(c => c.Carrier)
+                .HasForeignKey(c => c.CarrierId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Carrier>()
+                .HasMany(p => p.Feedbacks)
+                .WithOne(c => c.Carrier)
+                .HasForeignKey(c => c.CarrierId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using System.ComponentModel.DataAnnotations
 @using ParcelDelivery.Enums
-@using ParcelDelivery.Services
-@model IEnumerable<ParcelDelivery.Models.PropertyViewModel>
+@using ParcelDelivery.Extensions
+@model IEnumerable<ParcelDelivery.Models.ServiceViewModel>
 
 @{
     Layout = null;
@@ -13,14 +13,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Услуги курьера</title>
+    <title>Services</title>
     <link href="~/css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/PagedList.css" rel="stylesheet" type="text/css" />
     <link href="~/Modal.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
 </head>
 
 <body>
@@ -28,7 +28,7 @@
 <section id="topbar" class="d-none d-lg-block">
     <div class="container clearfix">
         <div class="contact-info float-left">
-            @Html.ActionLink("   На главную", "Index", "Home", new { }, new { @class = "card-link fa fa-home" })
+            @Html.ActionLink("   Home", "Index", "Home", new { }, new { @class = "card-link fa fa-home" })
             <i class="fa fa-phone"></i> +375 29 6-000-000
         </div>
         <div class="social-links float-right">
@@ -38,7 +38,7 @@
 </section>
 
 <div class="container">
-    <h2>Список услуг</h2>
+    <h2>List of services</h2>
     <table class="table table-bordered table-hover thead-dark">
         <thead>
         <tr>
@@ -46,21 +46,21 @@
                 ID
             </th>
             <th>
-                Стоимость за 1 км.
+                Price for 1 km.
             </th>
             <th>
-                Максимальный вес
+                Max weight
             </th>
             <th>
-                Тип груза
+                Type of cargo
             </th>
             <th>
-                География доставки
+                Transportation area
             </th>
             @if (User.Identity.Name.Equals("Admin"))
             {
                 <th>
-                    Действия
+                    Actions
                 </th>
             }
         </tr>
@@ -77,10 +77,10 @@
                 @if (User.Identity.Name.Equals("Admin"))
                 {
                     <td>
-                        @Html.ActionLink("Изменить", "Edit", "Property", new {id = c.Id},
-                            new {@class = "viewDialog", data_dialog_title = "Редактирование услуги"}) |
-                        @Html.ActionLink("Удалить", "Delete", "Property", new {id = c.Id},
-                            new {@class = "viewDialog", data_dialog_title = "Удаление услуги"})
+                        @Html.ActionLink("Edit", "Edit", "Service", new {id = c.Id},
+                            new {@class = "viewDialog", data_dialog_title = "Edit"}) |
+                        @Html.ActionLink("Delete", "Delete", "Service", new {id = c.Id},
+                            new {@class = "viewDialog", data_dialog_title = "Delete"})
                     </td>
                 }
             </tr>
@@ -89,9 +89,9 @@
     </table>
     @if (User.Identity.Name.Equals("Admin"))
     {
-        @*<p>@Html.ActionLink("Добавить услугу", "Create", "Property", new {id = @Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-lg viewDialog", data_dialog_title = "Добавление услуги"})</p>*@
+        <p>@Html.ActionLink("Add", "Create", "Service", new { carrierId = @ViewContext.RouteData.Values["id"] }, new {@class = "btn btn-primary btn-lg viewDialog", data_dialog_title = "Add"})</p>
     }
-    <a class="card-link" href='javascript:history.go(-1)'><span class="fa fa fa-arrow-left"></span> На предыдущую страницу</a>
+    <a class="card-link" href='javascript:history.go(-1)'><span class="fa fa fa-arrow-left"></span> Previous</a>
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/lib/jquery/jquery-ui.min.js"></script>

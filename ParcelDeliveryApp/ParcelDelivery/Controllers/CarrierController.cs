@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParcelDelivery.Models;
 using ParcelDelivery.BLL.Dtos;
 using ParcelDelivery.BLL.Interfaces;
+using ParcelDelivery.Services;
 using X.PagedList;
 
 namespace ParcelDelivery.Controllers
@@ -39,7 +40,7 @@ namespace ParcelDelivery.Controllers
 
             foreach (var item in carrier)
             {
-                var rate = _feedbackService.GetAll(x => x.Id == item.Id);
+                var rate = _feedbackService.GetAll(x => x.CarrierId == item.Id);
                 foreach (var k in rate)
                 {
                     sum += k.Rating;
@@ -74,7 +75,7 @@ namespace ParcelDelivery.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CarrierViewModel carrier)
+        public async Task<IActionResult> Create(CarrierViewModel carrier)
         {
             var userName = User.Identity.Name;
             var userId = _userService.FindUser(userName).Id;
@@ -89,7 +90,7 @@ namespace ParcelDelivery.Controllers
                 else
                 {
                     carrier.UserId = userId;
-                    _carrierService.Create(Mapper.Map<CarrierDto>(carrier));
+                    await _carrierService.Create(Mapper.Map<CarrierDto>(carrier));
                 }
             }
             return RedirectToAction("Index");
@@ -101,7 +102,7 @@ namespace ParcelDelivery.Controllers
             var carrier = _carrierService.GetAll(x => x.Id == id);
             if (carrier != null)
             {
-                return PartialView("_Edit", Mapper.Map<IEnumerable<CarrierDto>, CarrierViewModel>(_carrierService.GetAll(x => x.Id == id)));
+                return PartialView("_Edit", Mapper.Map<CarrierDto, CarrierViewModel>(_carrierService.GetAll(x => x.Id == id).FirstOrDefault()));
             }
             return View("Index");
         }
@@ -121,7 +122,7 @@ namespace ParcelDelivery.Controllers
             var carrier = _carrierService.GetAll(x => x.Id == id);
             if (carrier != null)
             {
-                return PartialView("_Delete", Mapper.Map<IEnumerable<CarrierDto>, CarrierViewModel>(_carrierService.GetAll(x => x.Id == id)));
+                return PartialView("_Delete", Mapper.Map<CarrierDto, CarrierViewModel>(_carrierService.GetAll(x => x.Id == id).FirstOrDefault()));
             }
             return View("Index");
         }
@@ -141,29 +142,29 @@ namespace ParcelDelivery.Controllers
             return RedirectToAction("Index");
         }
 
-        //[Authorize]
-        //public IActionResult FilteredList()
-        //{
-        //    double averageRate = 0;
-        //    int sum = 0;
+        [Authorize]
+        public IActionResult FilteredList()
+        {
+            double averageRate = 0;
+            int sum = 0;
 
-        //    var listOfCarriers = (IEnumerable<FilteredListViewModel>)TempData["carriers"];
+            var listOfCarriers = TempData.Get<IEnumerable<FilteredListViewModel>>("carriers");
 
-        //    foreach (var item in listOfCarriers)
-        //    {
-        //        var rate = _feedbackService.GetProductFeedbacks(item.CarrierId);
-        //        foreach (var k in rate)
-        //        {
-        //            sum += k.Rating;
-        //        }
-        //        if (rate.Count() != 0)
-        //            averageRate = sum / rate.Count();
-        //        ViewData.Add($"{item.CarrierId}", averageRate);
-        //        averageRate = 0;
-        //        sum = 0;
-        //    }
+            foreach (var item in listOfCarriers)
+            {
+                var rate = _feedbackService.GetAll(x => x.CarrierId == item.CarrierId);
+                foreach (var k in rate)
+                {
+                    sum += k.Rating;
+                }
+                if (rate.Count() != 0)
+                    averageRate = sum / rate.Count();
+                ViewData.Add($"{item.CarrierId}", averageRate);
+                averageRate = 0;
+                sum = 0;
+            }
 
-        //    return View(listOfCarriers);
-        //}
+            return View(listOfCarriers);
+        }
     }
 }

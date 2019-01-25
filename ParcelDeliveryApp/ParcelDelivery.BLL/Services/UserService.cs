@@ -39,7 +39,7 @@ namespace ParcelDelivery.BLL.Services
         {
             userDto.Password = HashProvider.Hash(userDto.Password);
             var regUser = Mapper.Map<User>(userDto);
-            _uow.Repository<User>().Create(regUser);
+            await _uow.Repository<User>().Create(regUser);
             await _uow.Commit();
         }
 

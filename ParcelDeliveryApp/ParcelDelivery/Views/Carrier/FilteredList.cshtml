@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Отфильтрованный список грузоперевозщиков</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <title>Filtered list of carriers</title>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,11 +28,11 @@
 <section id="topbar" class="d-none d-lg-block">
     <div class="container clearfix">
         <div class="contact-info float-left">
-            @Html.ActionLink("   На главную", "Index", "Home", new { }, new { @class = "card-link fa fa-home" })
+            @Html.ActionLink("   Home", "Index", "Home", new { }, new { @class = "card-link fa fa-home" })
             <i class="fa fa-phone"></i> +375 29 6-000-000
         </div>
         <div class="social-links float-right">
-            @Html.Partial("~/Views/Account/_LoginPartial.cshtml")
+            @await Html.PartialAsync("~/Views/Account/_LoginPartial.cshtml")
         </div>
     </div>
 </section>
@@ -40,14 +40,14 @@
 <table id="table" class="table table-striped table-bordered" style="width: 100%">
     <thead>
     <tr>
-        <th>Название</th>
-        <th>Адрес</th>
-        <th>Телефон</th>
-        <th>Описание</th>
-        <th>Стоимость</th>
-        <th>Время</th>
-        <th>Рейтинг</th>
-        <th>Отзывы</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Description</th>
+        <th>Coast</th>
+        <th>Time</th>
+        <th>Rating</th>
+        <th>Feedbacks</th>
     </tr>
     </thead>
     <tbody>
@@ -76,12 +76,12 @@
                     }
                 </td>
 
-                <td>@Html.ActionLink("Отзывы", "CarrierFeedBacks", "Feedback", new {id = item.CarrierId}, new {}) </td>
+                <td>@Html.ActionLink("Feedbacks", "CarrierFeedBacks", "Feedback", new {id = item.CarrierId}, new {}) </td>
             </tr>
         }
     }
     </tbody>
 </table>
-<a class="card-link" href='javascript:history.go(-1)'><span class="fa fa fa-arrow-left"></span> На предыдущую страницу</a>
+<a class="card-link" href='javascript:history.go(-1)'><span class="fa fa fa-arrow-left"></span> Previous</a>
 </body>
 </html>

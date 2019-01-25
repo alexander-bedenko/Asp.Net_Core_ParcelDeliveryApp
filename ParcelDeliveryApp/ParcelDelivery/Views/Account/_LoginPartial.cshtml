@@ -1,10 +1,10 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
     <i class="fa fa-check"><a href="#">Welcome, @User.Identity.Name! </a></i>
-    <i class="fa fa-sign-out"><a href="@Url.Action("Logout", "Account")">Выйти </a></i>
+    <i class="fa fa-sign-out"><a href="@Url.Action("Logout", "Account")">Logout </a></i>
     if (!User.Identity.Name.Equals("Admin"))
     {
-    <i class="fa fa-edit">@Html.ActionLink("Edit", "Edit", "Account", new { }, new { @class = "viewDialog", data_dialog_title = "Edit profile" })</i>
+        <i class="fa fa-edit">@Html.ActionLink("Edit", "Edit", "Account", new { }, new { @class = "viewDialog", data_dialog_title = "Edit profile" })</i>
     }
 
     if (User.Identity.Name.Equals("Admin"))

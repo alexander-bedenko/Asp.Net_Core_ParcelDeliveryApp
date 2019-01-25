@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace ParcelDelivery.Services
+namespace ParcelDelivery.Extensions
 {
     public static class EnumExtensions
     {

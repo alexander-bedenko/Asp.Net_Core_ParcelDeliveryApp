@@ -11,24 +11,24 @@
 
         <div>
             <p>@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })</p>
-            <p>@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Название" } })</p>
+            <p>@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Name" } })</p>
         </div>
 
         <div>
             <p>@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })</p>
-            <p>@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Адрес" } })</p>
+            <p>@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Address" } })</p>
         </div>
 
         <div>
             <p>@Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })</p>
-<p>@Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Телефон" } })</p>
+<p>@Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Phone" } })</p>
         </div>
 
         <div>
             <p>@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })</p>
-            <p>@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Описание" } })</p>
+            <p>@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%", placeholder = "Description" } })</p>
         </div>
 
-        <p><input type="submit" class="btn btn-block btn-success" value="Добавить" /></p>
+        <p><input type="submit" class="btn btn-block btn-success" value="Add" /></p>
     }
 </div>

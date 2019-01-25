@@ -11,8 +11,9 @@ namespace ParcelDelivery.Infrastructure
         {
             cfg.CreateMap<UserDto, UserViewModel>().ReverseMap();
             cfg.CreateMap<CarrierDto, CarrierViewModel>().ReverseMap();
-            cfg.CreateMap<ServiceDto, PropertyViewModel>().ReverseMap();
+            cfg.CreateMap<ServiceDto, ServiceViewModel>().ReverseMap();
             cfg.CreateMap<FeedbackDto, FeedbackViewModel>().ReverseMap();
+            cfg.CreateMap<FilteredListDto, FilteredListViewModel>().ReverseMap();
         };
     }
 }

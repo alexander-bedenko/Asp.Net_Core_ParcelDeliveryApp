@@ -1,16 +1,16 @@
-﻿@model ParcelDelivery.Models.PropertyViewModel
+﻿@model ParcelDelivery.Models.ServiceViewModel
 
-<h4>Вы действительно хотите удалить данную услугу?</h4>
+<h4>Are you sure?</h4>
 <div>
-    <p>Номер.: @Html.DisplayFor(m => m.Id)</p>
-    <p>Стоимость: @Html.DisplayFor(m => m.Coast)</p>
-    <p>Максимальный вес: @Html.DisplayFor(m => m.MaxWeight)</p>
+    <p>Num.: @Html.DisplayFor(m => m.Id)</p>
+    <p>Price: @Html.DisplayFor(m => m.Coast)</p>
+    <p>Max weight: @Html.DisplayFor(m => m.MaxWeight)</p>
 
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <input type="submit" class="btn btn-block btn-danger" value="Удалить" />
+        <input type="submit" class="btn btn-block btn-danger" value="Delete" />
     }
 </div>

@@ -3,7 +3,7 @@ using ParcelDelivery.Enums;
 
 namespace ParcelDelivery.Models
 {
-    public class PropertyViewModel : BaseViewModel
+    public class ServiceViewModel : BaseViewModel
     {
         public int CarrierId { get; set; }
 
@@ -12,7 +12,7 @@ namespace ParcelDelivery.Models
         public float MaxWeight { get; set; }
 
         [Required(ErrorMessage = "Enter coast of transportation")]
-        [Display(Name = "Coast of transportation 1 км.")]
+        [Display(Name = "Coast of transportation 1 km.")]
         public decimal Coast { get; set; }
 
         [Required(ErrorMessage = "Choose type of cargo")]

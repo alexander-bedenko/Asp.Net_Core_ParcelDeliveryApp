@@ -60,15 +60,24 @@ namespace ParcelDelivery.BLL.Services
             return dto;
         }
 
-        public void Create(TModel model)
+        public TModel Get(Expression<Func<TEntity, bool>> filter)
         {
-            _uow.Repository<TEntity>().Create(Mapper.Map<TEntity>(model));
-            _uow.Commit();
+            var entity = _uow.Repository<TEntity>().GetAsync(filter);
+            var dto = Mapper.Map<TModel>(entity);
+
+            return dto;
+        }
+
+        public async Task Create(TModel model)
+        {
+            await _uow.Repository<TEntity>().Create(Mapper.Map<TEntity>(model));
+            await _uow.Commit();
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _uow.Repository<TEntity>().DeleteAsync(Mapper.Map<TEntity>(id));
+            var entity = await _uow.Repository<TEntity>().GetAsync(x => x.Id == id);
+            await _uow.Repository<TEntity>().DeleteAsync(Mapper.Map<TEntity>(entity));
             await _uow.Commit();
         }
 

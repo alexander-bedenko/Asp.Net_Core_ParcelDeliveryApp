@@ -20,7 +20,7 @@ namespace ParcelDelivery.DAL.Repositories
             _context = context;
         }
 
-        public void Create(T entity) => _context.Set<T>().Add(entity);
+        public async Task Create(T entity) => await _context.Set<T>().AddAsync(entity);
 
         public async Task DeleteAsync(T entity)
         {
@@ -39,6 +39,9 @@ namespace ParcelDelivery.DAL.Repositories
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter) =>
             await _context.Set<T>().FirstOrDefaultAsync(filter);
+
+        public T Get(Expression<Func<T, bool>> filter) =>
+            _context.Set<T>().FirstOrDefault(filter);
 
         public async Task<T> UpdateAsync(T entity)
         {

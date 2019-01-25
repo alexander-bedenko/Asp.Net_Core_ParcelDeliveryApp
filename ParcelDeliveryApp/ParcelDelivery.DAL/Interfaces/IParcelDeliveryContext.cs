@@ -12,8 +12,7 @@ namespace ParcelDelivery.DAL.Interfaces
         DbSet<Carrier> Carriers { get; set; }
         DbSet<Feedback> Feedbacks { get; set; }
         DbSet<Service> Services { get; set; }
-        //int SaveChanges();
-        Task<int> SaveChangesAsync(CancellationToken defaultToken);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         void Dispose();
         EntityEntry Entry(object entity);
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
