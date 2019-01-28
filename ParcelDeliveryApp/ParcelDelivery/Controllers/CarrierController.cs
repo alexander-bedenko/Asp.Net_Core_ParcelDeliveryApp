@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParcelDelivery.Models;
 using ParcelDelivery.BLL.Dtos;
 using ParcelDelivery.BLL.Interfaces;
-using ParcelDelivery.Services;
+using ParcelDelivery.Extensions;
 using X.PagedList;
 
 namespace ParcelDelivery.Controllers
